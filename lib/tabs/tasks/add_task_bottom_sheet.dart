@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:todo/app_theme.dart';
 import 'package:todo/firebase_functions.dart';
 import 'package:todo/models/task_model.dart';
 import 'package:todo/tabs/tasks/default_elevated_button.dart';
@@ -111,11 +113,26 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
       onTimeout: () {
         Navigator.of(context).pop();
         Provider.of<TasksProvider>(context, listen: false).getTasks();
-        print('Task Added');
+        Fluttertoast.showToast(
+          msg: 'Task added successfully',
+          toastLength: Toast.LENGTH_LONG,
+          timeInSecForIosWeb: 5,
+          backgroundColor: AppTheme.green,
+          textColor: Colors.white,
+          fontSize: 16,
+        );
       },
-    ).catchError((error) {
-      print('Error');
-      print(error);
-    });
+    ).catchError(
+      (error) {
+        Fluttertoast.showToast(
+          msg: 'Something went wrong!',
+          toastLength: Toast.LENGTH_LONG,
+          timeInSecForIosWeb: 5,
+          backgroundColor: AppTheme.red,
+          textColor: Colors.white,
+          fontSize: 16,
+        );
+      },
+    );
   }
 }
