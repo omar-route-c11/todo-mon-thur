@@ -10,6 +10,8 @@ import 'package:todo/tabs/tasks/default_text_form_field.dart';
 import 'package:todo/tabs/tasks/tasks_provider.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
+  const AddTaskBottomSheet({super.key});
+
   @override
   State<AddTaskBottomSheet> createState() => _AddTaskBottomSheetState();
 }
@@ -27,7 +29,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
 
     return Container(
       height: MediaQuery.of(context).size.height * 0.55,
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       child: Form(
         key: formKey,
         child: Column(
@@ -36,7 +38,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
               'Add new task',
               style: titleMediumStyle,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             DefaultTextFormField(
               controller: titleController,
               hintText: 'Enter task title',
@@ -48,7 +50,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                 }
               },
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             DefaultTextFormField(
               controller: descriptionController,
               hintText: 'Enter task description',
@@ -61,18 +63,18 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
               },
               maxLines: 5,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
               'Select date',
               style: titleMediumStyle?.copyWith(fontWeight: FontWeight.w400),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             InkWell(
               onTap: () async {
                 DateTime? dateTime = await showDatePicker(
                   context: context,
                   firstDate: DateTime.now(),
-                  lastDate: DateTime.now().add(Duration(days: 365)),
+                  lastDate: DateTime.now().add(const Duration(days: 365)),
                   initialDate: selectedDate,
                   initialEntryMode: DatePickerEntryMode.calendarOnly,
                 );
@@ -86,7 +88,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                 style: titleMediumStyle,
               ),
             ),
-            SizedBox(height: 32),
+            const SizedBox(height: 32),
             DefaultElevatedButton(
               label: 'Submit',
               onPressed: () {
@@ -109,7 +111,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
         date: selectedDate,
       ),
     ).timeout(
-      Duration(microseconds: 500),
+      const Duration(microseconds: 500),
       onTimeout: () {
         Navigator.of(context).pop();
         Provider.of<TasksProvider>(context, listen: false).getTasks();

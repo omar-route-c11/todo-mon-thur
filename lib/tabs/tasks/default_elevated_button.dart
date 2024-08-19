@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:todo/app_theme.dart';
 
 class DefaultElevatedButton extends StatelessWidget {
-  DefaultElevatedButton({required this.label, required this.onPressed});
+  const DefaultElevatedButton({
+    super.key,
+    required this.label,
+    required this.onPressed,
+  });
 
-  String label;
-  VoidCallback onPressed;
+  final String label;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
