@@ -3,6 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:todo/app_theme.dart';
+import 'package:todo/auth/user_provider.dart';
 import 'package:todo/firebase_functions.dart';
 import 'package:todo/models/task_model.dart';
 import 'package:todo/tabs/tasks/tasks_provider.dart';
@@ -23,13 +24,14 @@ class TaskItem extends StatelessWidget {
           motion: const ScrollMotion(),
           children: [
             SlidableAction(
-              onPressed: (context) {
-                FirebaseFunctions.deleteTaskFromFirestore(task.id)
-                    .timeout(
-                  const Duration(microseconds: 500),
-                  onTimeout: () =>
-                      Provider.of<TasksProvider>(context, listen: false)
-                          .getTasks(),
+              onPressed: (_) {
+                final userId = Provider.of<UserProvider>(context, listen: false)
+                    .currentUser!
+                    .id;
+                FirebaseFunctions.deleteTaskFromFirestore(task.id, userId)
+                    .then(
+                  (_) => Provider.of<TasksProvider>(context, listen: false)
+                      .getTasks(userId),
                 )
                     .catchError(
                   (error) {
